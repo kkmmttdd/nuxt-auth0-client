@@ -53,6 +53,8 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
   /*
   ** vuetify module configuration
@@ -80,5 +82,24 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+  auth: {
+    cookie: false,
+    localStorage: true,
+    strategies: {
+      local: false,
+      auth0: {
+        domain: process.env.AUTH0_DOMAIN,
+        client_id: process.env.AUTH0_CLIENT_ID,
+        response_type: 'id_token token',
+        token_key: 'id_token'
+      }
+    },
+    redirect: {
+      login: '/',
+      logout: '/',
+      callback: '/callback',
+      home: '/',
+    },
   }
 }
