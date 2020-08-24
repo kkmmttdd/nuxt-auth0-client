@@ -85,14 +85,17 @@ export default {
   },
   auth: {
     cookie: false,
-    localStorage: true,
+    localStorage: {
+      prefix: 'auth0'
+    },
     strategies: {
       local: false,
       auth0: {
         domain: process.env.AUTH0_DOMAIN,
         client_id: process.env.AUTH0_CLIENT_ID,
+        scope: ['openid', 'profile', 'email'],
         response_type: 'id_token token',
-        token_key: 'id_token'
+        audience: process.env.AUTH0_AUDIENCE,
       }
     },
     redirect: {
